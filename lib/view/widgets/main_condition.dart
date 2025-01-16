@@ -142,6 +142,8 @@ class MainCondition extends StatelessWidget {
         return Icon(Icons.cloudy_snowing, color: Colors.grey[300], size: 65.sp);
       case 'Thunderstorm':
         return Icon(Icons.thunderstorm, color: Colors.grey[300], size: 65.sp);
+      case 'Fog':
+        return Icon(Icons.foggy, color: Colors.grey[300], size: 65.sp);
       default:
         return Icon(Icons.sunny, color: Colors.amber, size: 65.sp);
     }

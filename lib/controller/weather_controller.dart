@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:io';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -38,7 +37,6 @@ class WeatherController extends GetxController {
         );
 
         if (response.statusCode == 200) {
-          log(response.body);
           weatherModel = WeatherModel.fromJson(response.body);
           await storeData();
         }
@@ -48,7 +46,7 @@ class WeatherController extends GetxController {
     } catch (e) {
       errorMessg = 'Somting went wrong';
       if (e is SocketException) {
-        errorMessg = 'Internt Connection Issues';
+        errorMessg = 'Internt Connection Issue';
       } else {}
       isError = true;
     } finally {
@@ -57,6 +55,7 @@ class WeatherController extends GetxController {
     update();
   }
 
+  // search location by county code or zip code
   void searchWeather(String key) async {
     try {
       isLoading = true;
@@ -83,10 +82,12 @@ class WeatherController extends GetxController {
     update();
   }
 
+  // store the latest data on local sorage for better user experiance
   Future<void> storeData() async {
     await storage.write('weatherData', weatherModel!.toMap());
   }
 
+// retrive data from local storage
   Future<void> retrieveWeatherData() async {
     Map<String, dynamic>? weatherMap =
         storage.read<Map<String, dynamic>>('weatherData');
@@ -96,6 +97,7 @@ class WeatherController extends GetxController {
     update();
   }
 
+// ask permision for location
   Future<void> checkPermission() async {
     LocationPermission permission = await Geolocator.checkPermission();
 
@@ -107,7 +109,6 @@ class WeatherController extends GetxController {
         return;
       } else {
         userPosition = await Geolocator.getCurrentPosition();
-        update();
       }
     } else {
       userPosition = await Geolocator.getCurrentPosition();
