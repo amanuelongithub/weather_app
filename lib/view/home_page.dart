@@ -86,16 +86,24 @@ class _HomePageState extends State<HomePage> {
                             borderSide: BorderSide.none),
                         filled: true,
                         fillColor: const Color.fromARGB(85, 209, 209, 209),
-                        contentPadding:
-                            EdgeInsets.symmetric(horizontal: 30.w),
-                        // suffix: ,
-                        suffixIcon: IconButton(
-                          onPressed: () {
-                            weatherController
-                                .searchWeather(searchText.text);
-                          },
-                          icon: Icon(Icons.search),
-                          color: Colors.white,
+                        contentPadding: EdgeInsets.symmetric(horizontal: 30.w),
+                        suffixIcon: Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 0.0),
+                          child: Container(
+                            width: 35.w,
+                            height: 20,
+                            decoration: BoxDecoration(
+                                color: Colors.grey[300],
+                                borderRadius: BorderRadius.circular(5)),
+                            child: IconButton(
+                              onPressed: () {
+                                weatherController
+                                    .searchWeather(searchText.text);
+                              },
+                              icon: Icon(Icons.search),
+                              color: Colors.black,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -108,9 +116,9 @@ class _HomePageState extends State<HomePage> {
               child: Column(children: [
                 SizedBox(height: 20),
                 MainCondition(
-                  temp: convertToceCelsius(
-                          weatherController.weatherModel!.temp!)
-                      .toString(),
+                  temp:
+                      convertToceCelsius(weatherController.weatherModel!.temp!)
+                          .toString(),
                   condition: weatherController.weatherModel!.condition!,
                   location: weatherController.weatherModel!.name!,
                   minTemp: convertToceCelsius(
